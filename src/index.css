@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply antialiased bg-[#030712] text-slate-300;
+    }
+}
+
+.glow-card {
+    @apply bg-slate-900/50 backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-accent/50 transition-all duration-500 hover:shadow-glow;
+}
+
+.visualizer-node {
+    @apply bg-accent rounded-lg shadow-node;
+}
