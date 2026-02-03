@@ -1,0 +1,11 @@
+# Games Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Game development
+pygame==2.5.2
+
+# Arcade games
+arcade==3.0.0  # Alternative to pygame
+
+# GUI for games
+tkinter  # Usually included with Python

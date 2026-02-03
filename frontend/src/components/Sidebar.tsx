@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router';
 import { BookOpen, Binary, Code2, ChevronRight, Sparkles } from 'lucide-react';
 import type { Skill, Category } from '../types';
+import { useStore } from '../store/useStore';
 
 const categoryIcons: Record<Category, React.ReactNode> = {
   basics: <BookOpen className="w-4 h-4" />,
@@ -16,11 +18,17 @@ const categoryColors: Record<Category, string> = {
 
 interface SidebarProps {
   skills: Skill[];
-  selectedSkill: Skill;
-  onSelectSkill: (skill: Skill) => void;
 }
 
-export function Sidebar({ skills, selectedSkill, onSelectSkill }: SidebarProps) {
+export function Sidebar({ skills }: SidebarProps) {
+  const location = useLocation();
+  const { progress, isBookmarked } = useStore();
+
+  // Get current skill ID from path
+  const currentSkillId = location.pathname.startsWith('/skill/')
+    ? location.pathname.split('/skill/')[1]
+    : null;
+
   // Group skills by category
   const groupedSkills = skills.reduce((acc, skill) => {
     if (!acc[skill.category]) {
@@ -76,45 +84,59 @@ export function Sidebar({ skills, selectedSkill, onSelectSkill }: SidebarProps) 
               </div>
 
               <div className="space-y-1">
-                {categorySkills.map((skill) => (
-                  <motion.button
-                    key={skill.id}
-                    onClick={() => onSelectSkill(skill)}
-                    whileHover={{ x: 2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
-                      selectedSkill.id === skill.id
-                        ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-                    }`}
-                    style={{
-                      // Intentional quirk: slightly uneven margins
-                      marginLeft: skill.id.length % 2 === 0 ? '0px' : '2px',
-                      marginRight: skill.id.length % 2 === 0 ? '2px' : '0px',
-                    }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className="flex-1 truncate">{skill.title}</span>
-                      {selectedSkill.id === skill.id && (
-                        <ChevronRight className="w-3.5 h-3.5 text-purple-400" />
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded ${
-                        skill.difficulty === 'beginner' 
-                          ? 'bg-green-500/10 text-green-400'
-                          : skill.difficulty === 'intermediate'
-                          ? 'bg-yellow-500/10 text-yellow-400'
-                          : 'bg-red-500/10 text-red-400'
-                      }`}>
-                        {skill.difficulty}
-                      </span>
-                      <span className="text-[10px] text-slate-500">
-                        {skill.estimatedTime}
-                      </span>
-                    </div>
-                  </motion.button>
-                ))}
+                {categorySkills.map((skill) => {
+                  const skillProgress = progress[skill.id];
+                  const bookmarked = isBookmarked(skill.id);
+
+                  return (
+                    <Link
+                      key={skill.id}
+                      to={`/skill/${skill.id}`}
+                    >
+                      <motion.button
+                        whileHover={{ x: 2 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
+                          currentSkillId === skill.id
+                            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
+                            : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                        }`}
+                        style={{
+                          // Intentional quirk: slightly uneven margins
+                          marginLeft: skill.id.length % 2 === 0 ? '0px' : '2px',
+                          marginRight: skill.id.length % 2 === 0 ? '2px' : '0px',
+                        }}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="flex-1 truncate">{skill.title}</span>
+                          {bookmarked && (
+                            <span className="text-yellow-400 text-xs">★</span>
+                          )}
+                          {currentSkillId === skill.id && (
+                            <ChevronRight className="w-3.5 h-3.5 text-purple-400" />
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded ${
+                            skill.difficulty === 'beginner'
+                              ? 'bg-green-500/10 text-green-400'
+                              : skill.difficulty === 'intermediate'
+                              ? 'bg-yellow-500/10 text-yellow-400'
+                              : 'bg-red-500/10 text-red-400'
+                          }`}>
+                            {skill.difficulty}
+                          </span>
+                          <span className="text-[10px] text-slate-500">
+                            {skill.estimatedTime}
+                          </span>
+                          {skillProgress?.completed && (
+                            <span className="text-[10px] text-green-400">✓</span>
+                          )}
+                        </div>
+                      </motion.button>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           );

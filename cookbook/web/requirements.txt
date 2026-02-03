@@ -1,0 +1,22 @@
+# Web Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# HTTP requests
+requests==2.31.0
+
+# HTML parsing
+beautifulsoup4==4.12.2
+lxml==4.9.3
+
+# Async HTTP
+aiohttp==3.9.1
+
+# API utilities
+pydantic==2.5.2
+
+# Web scraping
+selenium==4.16.0  # For dynamic content
+webdriver-manager==4.0.1  # Chrome driver management
+
+# Data extraction
+pandas==2.1.4  # For scraped data

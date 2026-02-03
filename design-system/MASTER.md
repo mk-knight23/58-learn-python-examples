@@ -1,6 +1,6 @@
-# Visual Python Learning System — Design Master
+# Visual Python Learning System — Design Master v3.0
 
-> A living document for building a humane, visual-first Python learning experience.
+> Glassmorphism Edition: Modern, bright, and confident UI for visual Python learning
 
 ---
 
@@ -10,76 +10,82 @@ This system exists because code is abstract, and abstraction is a barrier to beg
 
 **Core belief**: Learning Python should feel like exploring, not memorizing.
 
+**v3.0 Update**: Adopted glassmorphism design with vibrant indigo/cyan palette for enhanced visual clarity and modern aesthetics.
+
 ---
 
-## Color Palette
+## Color Palette (Glassmorphism Indigo Theme)
 
 ### Primary Colors
 
 ```
---purple-50:  #faf5ff   /* Background highlights */
---purple-100: #f3e8ff  /* Card backgrounds */
---purple-300: #d8b4fe  /* Secondary accents */
---purple-500: #a855f7  /* Primary purple */
---purple-600: #9333ea  /* Interactive hover */
---purple-700: #7e22ce  /* Deep accents */
+--cad-primary:      #4F46E5   /* Vibrant indigo - primary actions */
+--cad-primary-dark:  #4338CA   /* Hover states */
+--cad-primary-light: #6366F1   /* Focus rings, accents */
 ```
 
-### Secondary Colors (Teal family for success/completion states)
+### Secondary & Accent Colors
 
 ```
---teal-50:   #f0fdfa   /* Success backgrounds */
---teal-300:  #5eead4   /* Gentle highlights */
---teal-500:  #14b8a6   /* Success/completion */
---teal-600:  #0d9488   /* Interactive states */
+--cad-secondary: #818CF8   /* Cyan for highlights */
+--cad-cta:       #22C55E   /* Vibrant green for completion */
 ```
 
-### Warm Accents (Soft oranges for warmth, warnings)
+### Neutral Colors (Light Blue-White Tinted Grayscale)
 
 ```
---orange-50:  #fff7ed  /* Warm backgrounds */
---orange-300: #fdba74 /* Gentle warnings */
---orange-400: #fb923c /* Highlights */
---orange-500: #f97316 /* Primary warmth */
-```
-
-### Neutral Scale (Slate for text hierarchy)
-
-```
---slate-50:   #f8fafc  /* Light mode backgrounds */
---slate-100:  #f1f5f9  /* Subtle backgrounds */
---slate-300:  #cbd5e1  /* Disabled states */
---slate-400:  #94a3b8  /* Secondary text */
---slate-500:  #64748b  /* Tertiary text */
---slate-600:  #475569  /* Body text */
---slate-700:  #334155  /* Strong text */
---slate-800:  #1e293b  /* Dark backgrounds */
---slate-900:  #0f172a  /* Deepest backgrounds */
---slate-950:  #020617  /* Near-black */
+--cad-gray-50:  #EEF2FF   /* Main background (light blue-white) */
+--cad-gray-100: #E0E7FF   /* Hover backgrounds */
+--cad-gray-200: #C7D2FE   /* Borders, dividers */
+--cad-gray-300: #A5B4FC   /* Disabled states */
+--cad-gray-400: #818CF8   /* Secondary text */
+--cad-gray-500: #6366F1   /* Placeholder text */
+--cad-gray-600: #4F46E5   /* Body text (primary) */
+--cad-gray-700: #312E81   /* Headings (deep indigo) */
+--cad-gray-800: #1E1B4B   /* Dark backgrounds */
+--cad-gray-900: #0F172A   /* Deepest backgrounds */
 ```
 
 ### Semantic Colors
 
 | Purpose | Color | Hex | Usage |
 |---------|-------|-----|-------|
-| Accent/Primary | Purple 500 | `#a855f7` | Links, buttons, highlights |
-| Success | Teal 500 | `#14b8a6` | Correct answers, completion |
-| Warning | Orange 400 | `#fb923c` | Hints, gentle warnings |
-| Error | Rose 500 | `#f43f5e` | Errors, incorrect paths |
-| Code keyword | Purple 400 | `#c084fc` | Python keywords |
-| Code string | Teal 300 | `#5eead4` | String literals |
-| Code number | Orange 300 | `#fdba74` | Numeric literals |
-| Code comment | Slate 500 | `#64748b` | Comments |
+| Accent/Primary | Indigo | `#4F46E5` | Links, buttons, highlights |
+| Success | Green | `#22C55E` | Correct answers, completion |
+| Warning | Orange | `#F59E0B` | Hints, gentle warnings |
+| Error | Red | `#EF4444` | Errors, incorrect paths |
+| Code keyword | Indigo Light | `#6366F1` | Python keywords |
+| Code string | Cyan | `#818CF8` | String literals |
+| Code number | Orange | `#F59E0B` | Numeric literals |
+| Code comment | Gray 500 | `#6366F1` | Comments |
+
+### Background Colors
+
+```
+--cad-bg:       #EEF2FF   /* Main background (light blue-white) */
+--cad-bg-dark:  #0F172A   /* Dark mode background */
+--cad-surface:  #FFFFFF   /* Cards, surfaces (with opacity) */
+```
 
 ---
 
 ## Typography
 
-### Font Stack
+### Font Stack (Fira Code/Sans for technical precision)
 
 ```css
---font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
---font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+--font-sans: 'Fira Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+--font-mono: 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+```
+
+**Why Fira Code/Sans?** Designed for technical dashboards and code, with excellent readability for educational content.
+
+### Google Fonts Import
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 ```
 
 ### Type Scale
@@ -99,8 +105,48 @@ This system exists because code is abstract, and abstraction is a barrier to beg
 
 - **Headings**: Tight tracking (-0.02em) for impact
 - **Body**: Comfortable reading (1.6 line height)
-- **Code**: Slightly smaller, monospace, generous horizontal padding
+- **Code**: Fira Code monospace, generous horizontal padding
 - **Labels**: Uppercase, wide tracking (0.05em), small size
+
+---
+
+## Glassmorphism Effects
+
+### Glass Card Style
+
+```css
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow:
+    0 4px 6px -1px rgba(79, 70, 229, 0.1),
+    0 2px 4px -1px rgba(79, 70, 229, 0.06),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  box-shadow:
+    0 8px 12px -2px rgba(79, 70, 229, 0.15),
+    0 4px 6px -2px rgba(79, 70, 229, 0.1);
+  transform: translateY(-2px);
+}
+```
+
+### Glass Navigation
+
+```css
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+```
 
 ---
 
@@ -114,7 +160,7 @@ Every animation must answer: *What does this teach?*
 |----------------|---------|----------|--------|
 | **Swap** | Show element exchange in sorting | 400ms | `cubic-bezier(0.4, 0, 0.2, 1)` |
 | **Compare** | Highlight elements being compared | 300ms | `ease-in-out` |
-| **Insert** | Show placement in insertion sort | 350ms | `cubic-bezier(0.34, 1.56, 0.64, 1)` (slight bounce) |
+| **Insert** | Show placement in insertion sort | 350ms | `cubic-bezier(0.34, 1.56, 0.64, 1)` |
 | **Merge** | Demonstrate combining arrays | 500ms | `ease-out` |
 | **Grow** | Show array element scaling | 200ms | `ease-out` |
 | **Fade** | Transition between states | 150ms | `ease` |
@@ -125,14 +171,6 @@ Every animation must answer: *What does this teach?*
 - **Fast enough** to not feel tedious
 - **Pause on hover** to let learners examine state
 - **Replayable** - always allow re-watching
-
-### Stagger Patterns
-
-```css
-/* For revealing lists */
---stagger-base: 50ms;
---stagger-item: calc(var(--index) * var(--stagger-base));
-```
 
 ---
 
@@ -152,42 +190,39 @@ Every animation must answer: *What does this teach?*
 
 **Ratio**: 1fr (sidebar) : 1.2fr (code) : 1.5fr (visual)
 
-### Card Patterns
-
-- **Standard card**: White background, subtle shadow, rounded-xl (12px)
-- **Code card**: Dark background (slate-900), syntax highlighting
-- **Visual card**: Generous padding, centered content, minimal borders
-- **Navigation card**: Compact, hover state, active indicator
-
-### Spacing System
+### Spacing System (8px base grid)
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| `space-1` | 0.25rem (4px) | Tight gaps |
-| `space-2` | 0.5rem (8px) | Internal padding |
-| `space-3` | 0.75rem (12px) | Component gaps |
-| `space-4` | 1rem (16px) | Standard gaps |
-| `space-6` | 1.5rem (24px) | Section gaps |
-| `space-8` | 2rem (32px) | Major sections |
-| `space-12` | 3rem (48px) | Page sections |
+| `--space-1` | 4px | Micro adjustments |
+| `--space-2` | 8px | Tight spacing |
+| `--space-3` | 12px | Component gaps |
+| `--space-4` | 16px | Standard padding |
+| `--space-6` | 24px | Section gaps |
+| `--space-8` | 32px | Large sections |
+| `--space-12` | 48px | Major breaks |
+
+### Border Radius (More rounded for modern feel)
+
+```css
+--radius-sm: 6px;
+--radius-md: 10px;
+--radius-lg: 16px;
+--radius-xl: 20px;
+--radius-full: 9999px;
+```
 
 ---
 
 ## Visual Learning Patterns
 
-### Code + Visualization Pairing
-
-1. **Highlight coupling**: When code line N is active, visual shows step N
-2. **Progressive reveal**: Don't show all code at once - unfold as learner progresses
-3. **Scrubbability**: Allow jumping to any step, see code + visual state
-
 ### Color in Visualizations
 
-- **Active element**: Purple 500 with glow
-- **Comparing elements**: Teal 300 outline
-- **Sorted portion**: Teal 500 (soft, "complete" feeling)
-- **Unsorted portion**: Slate 400 (neutral)
-- **Pivot/Key**: Orange 400 (stands out)
+- **Active element**: Indigo 500 (#4F46E5) with glow
+- **Comparing elements**: Cyan outline (#818CF8)
+- **Sorted portion**: Green (#22C55E) - completion feeling
+- **Unsorted portion**: Indigo 400 (#A5B4FC) - neutral
+- **Pivot/Key**: Orange (#F59E0B) - stands out
 
 ### Interactive States
 
@@ -201,71 +236,9 @@ Every animation must answer: *What does this teach?*
 
 ---
 
-## The Intentional Quirk
-
-> **Cards have slightly uneven margins.**
-
-Specifically: 
-- Left padding is 4px more than right
-- Top padding is 2px more than bottom
-- This creates a subtle "hand-placed" feeling
-- Prevents the sterile, "generated by a grid" aesthetic
-
-```css
-.card-with-quirk {
-  padding: 18px 14px 16px 18px; /* top right bottom left */
-}
-```
-
-Why? Perfect symmetry feels mechanical. Slight asymmetry feels human, approachable, less intimidating to beginners.
-
----
-
-## The Tradeoff
-
-> **We chose teaching clarity over algorithmic efficiency in animations.**
-
-**What this means:**
-- Animations are slower than "optimal" for learning
-- We show intermediate states that real optimized code might skip
-- Extra visual noise (borders, highlights) that pure code doesn't need
-
-**Why we accepted this:**
-- The goal is understanding, not production performance
-- A learner who understands the slow version can mentally optimize
-- Debugging a slow mental model is easier than debugging a black box
-
-**The cost:**
-- Power users might find it slow
-- Large datasets (n > 50) won't visualize well
-- We address this with "fast mode" toggle for experienced users
-
----
-
-## The Limitation Accepted
-
-> **No server-side Python execution.**
-
-**What this means:**
-- All Python code shown is static (pre-written)
-- Visualizations are JavaScript/TypeScript implementations
-- Users cannot edit and run arbitrary Python in the browser
-
-**Why we accepted this:**
-- Running user-submitted Python server-side is a security nightmare
-- Browser-based Python (Pyodide/WASM) is heavy and slow to load
-- Static code + curated visualizations provide 90% of the learning value
-
-**Workarounds:**
-- Clear instructions on how to run code locally
-- Link to online Python interpreters (Replit, Python Tutor)
-- Encourage local setup as a learning milestone
-
----
-
 ## Component Patterns
 
-### Algorithm Card
+### Algorithm Card (Glassmorphism)
 
 ```
 ┌────────────────────────────────────┐
@@ -278,6 +251,8 @@ Why? Perfect symmetry feels mechanical. Slight asymmetry feels human, approachab
 └────────────────────────────────────┘
 ```
 
+**Style**: Glass card with white/70% opacity, subtle indigo shadows
+
 ### Code Panel
 
 ```
@@ -288,23 +263,29 @@ Why? Perfect symmetry feels mechanical. Slight asymmetry feels human, approachab
 │  4          swapped = False        │
 │  5          ...                    │
 └────────────────────────────────────┘
-     ↑ Line numbers, current step indicator
 ```
 
-### Visual Panel (Sorting Example)
+**Style**: Dark background (#0F172A) with syntax highlighting
 
-```
-┌────────────────────────────────────┐
-│                                    │
-│   ██    ██  ████  ██    ████      │
-│   ██    ██  ████  ██    ████      │
-│   ██ ▲  ██  ████  ██ ▲  ████      │
-│   ██    ██  ████  ██    ████      │
-│   [5]   [3]  [8]  [2]   [7]       │
-│    comparing...                   │
-│                                    │
-│  [<] [▶] [>]  Step 3 of 24        │
-└────────────────────────────────────┘
+---
+
+## Accessibility
+
+### Minimum Requirements
+
+- **Color Contrast**: 4.5:1 for normal text, 3:1 for large text (WCAG AA)
+- **Focus Indicators**: 2px solid offset outline with indigo color
+- **Touch Targets**: Minimum 44x44px for interactive elements
+- **Reduced Motion**: Disable animations when `prefers-reduced-motion` is set
+
+### Focus States
+
+```css
+:focus-visible {
+  outline: 2px solid var(--cad-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 ```
 
 ---
@@ -319,70 +300,35 @@ Why? Perfect symmetry feels mechanical. Slight asymmetry feels human, approachab
 | Tablet | 640-1024px | Sidebar collapses to drawer |
 | Desktop | > 1024px | Full 3-column layout |
 
-### Mobile Adaptations
-
-- Code panel becomes bottom sheet
-- Visualization takes full width
-- Simplified controls (touch-friendly)
-- Step-by-step replaces continuous animation
-
 ---
 
-## Accessibility
+## Dark Mode
 
-### Required Support
-
-- **Keyboard navigation**: Tab through all interactive elements
-- **Screen reader**: All visualizations have text alternatives
-- **Reduced motion**: Respect `prefers-reduced-motion`
-- **Color contrast**: Minimum 4.5:1 for text
-
-### Patterns
-
-- Animation pause button always visible
-- Alt text for every visualization step
-- Focus rings on all interactive elements
-- No information conveyed by color alone
-
----
-
-## File Naming Conventions
+Dark mode uses deep navy background with adjusted contrast:
 
 ```
-skills/
-  algorithms/
-    sorting/
-      bubble_sort.py          # Original Python
-      bubble_sort.ts          # React component + visualization
-      bubble_sort.test.ts     # Tests
-      metadata.json           # Description, difficulty, tags
+Light Mode                    Dark Mode
+─────────────────────────────────────────
+--cad-bg       →  --cad-bg-dark
+--cad-gray-50  →  --cad-gray-900
+--cad-gray-100 →  --cad-gray-800
+--cad-gray-200 →  --cad-gray-700
+--cad-gray-600 →  --cad-gray-300
+--cad-gray-700 →  --cad-gray-200
+--cad-gray-800 →  --cad-gray-100
+--cad-gray-900 →  --cad-gray-50
 ```
-
----
-
-## Writing Style (UI Copy)
-
-### Tone Guidelines
-
-- **Clear over clever**: "Sort this array" not "Perform the magical sort ritual"
-- **Conversational**: "Let's see how this works" not "The algorithm will now execute"
-- **Encouraging**: "Try a different input" not "That input is invalid"
-- **Precise**: Use correct technical terms ("time complexity" not "speed")
-
-### Pattern Names in UI
-
-- Use "Show me" not "Learn" (less prescriptive)
-- Use "Try it" not "Practice" (more inviting)
-- Use "Why this works" not "Explanation" (more curious)
 
 ---
 
 ## Version History
 
-| Date | Change | Author |
-|------|--------|--------|
-| 2026-01-29 | Initial design system | System |
+| Version | Date | Changes |
+|---------|------|---------|
+| 3.0 | 2026-02-04 | Glassmorphism redesign with vibrant indigo theme |
+| 2.0 | 2026-01-29 | Purple/teal theme for learning platform |
+| 1.0 | 2026-01-15 | Initial design system |
 
 ---
 
-*This document is a living reference. Update it when adding new patterns, discovering issues, or refining the learning experience.*
+*Updated using UI-UX Pro Max System v2.0*

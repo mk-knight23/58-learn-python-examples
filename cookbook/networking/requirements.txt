@@ -1,0 +1,16 @@
+# Networking Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Async networking
+websockets==12.0
+
+# HTTP server
+aiohttp==3.9.1
+aiohttp-cors==0.7.0
+
+# Network utilities
+scapy==2.5.0  # Packet manipulation
+paramiko==3.4.0  # SSH
+
+# Most networking uses built-in libraries:
+# socket, asyncio, http.server, etc.

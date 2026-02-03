@@ -1,0 +1,15 @@
+# GUI Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Qt Framework
+PyQt5==5.15.10
+PyQt5-Qt5==5.15.2
+PyQt5-sip==12.13.0
+
+# Alternative GUI frameworks
+kivy==2.3.0  # Cross-platform
+PySimpleGUI==5.0.5  # Simple API
+customtkinter==5.2.1  # Modern tkinter
+
+# Web-based GUI
+streamlit==1.29.0  # Quick web GUI

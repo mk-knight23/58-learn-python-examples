@@ -1,0 +1,17 @@
+# Automation Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# GUI automation
+pyautogui==0.9.54
+
+# Scheduling
+schedule==1.2.0
+
+# File operations (mostly built-in, but useful additions)
+watchdog==3.0.0  # File system watching
+
+# Notifications
+plyer==2.1.0  # Cross-platform notifications
+
+# Clipboard
+pyperclip==1.8.2

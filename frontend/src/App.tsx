@@ -1,108 +1,103 @@
-import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router';
 import { Sidebar } from './components/Sidebar';
 import { CodePanel } from './components/CodePanel';
 import { Visualizer } from './components/Visualizer';
+import { NotesModal } from './components/NotesModal';
+import { TopBar } from './components/TopBar';
+import { Profile } from './pages/Profile';
+import { SearchPage } from './pages/Search';
+import { Bookmarks } from './pages/Bookmarks';
+import { Quiz } from './pages/Quiz';
+import { SettingsPage } from './pages/Settings';
+import { Notes } from './pages/Notes';
+import { Achievements } from './pages/Achievements';
+import { SkillView } from './pages/SkillView';
 import { skills } from './data/skills';
-import { Github, BookOpen, Heart } from 'lucide-react';
+import { useStore } from './store/useStore';
+import { updateLastActive } from './lib/storage';
 
-function App() {
-  const [selectedSkill, setSelectedSkill] = useState(skills[0]);
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
 
-  // Reset view when skill changes
-  const handleSelectSkill = (skill: typeof selectedSkill) => {
-    setSelectedSkill(skill);
-  };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  // Memoize skills to prevent unnecessary re-renders
-  const memoizedSkills = useMemo(() => skills, []);
+  return null;
+}
+
+// Main learning view with sidebar
+function MainLayout() {
+  const { profile } = useStore();
+
+  useEffect(() => {
+    if (profile) {
+      updateLastActive();
+    }
+  }, [profile]);
 
   return (
     <div className="h-screen flex bg-slate-950 text-white overflow-hidden">
       {/* Sidebar Navigation */}
-      <Sidebar 
-        skills={memoizedSkills} 
-        selectedSkill={selectedSkill}
-        onSelectSkill={handleSelectSkill}
-      />
+      <Sidebar skills={skills} />
 
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="h-16 border-b border-white/5 bg-slate-900/30 flex items-center justify-between px-6 flex-shrink-0">
-          <div className="flex items-center gap-4">
-            <h2 className="text-lg font-semibold text-white">
-              {selectedSkill.title}
-            </h2>
-            <span className="text-slate-500">|</span>
-            <div className="flex items-center gap-2 text-sm text-slate-400">
-              <BookOpen className="w-4 h-4" />
-              <span>{selectedSkill.estimatedTime}</span>
-            </div>
-          </div>
+        <TopBar />
 
-          <div className="flex items-center gap-3">
-            <a
-              href="https://github.com/mk-knight23/25-python-mixed-examples"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
-            >
-              <Github className="w-4 h-4" />
-              <span className="hidden sm:inline">View on GitHub</span>
-            </a>
-          </div>
-        </header>
-
-        {/* Content Grid */}
-        <div className="flex-1 overflow-hidden p-6">
-          <div className="h-full grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left Panel: Code */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`code-${selectedSkill.id}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="h-full min-h-0"
-              >
-                <CodePanel skill={selectedSkill} />
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Right Panel: Visualization */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`viz-${selectedSkill.id}`}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                transition={{ duration: 0.3, delay: 0.1 }}
-                className="h-full min-h-0"
-              >
-                <Visualizer skill={selectedSkill} />
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <footer className="h-12 border-t border-white/5 bg-slate-900/30 flex items-center justify-between px-6 flex-shrink-0">
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <span>Visual Python Learning System</span>
-            <span className="text-slate-700">•</span>
-            <span>Built with React + Framer Motion</span>
-          </div>
-          
-          <div className="flex items-center gap-2 text-xs text-slate-500">
-            <span>Made with</span>
-            <Heart className="w-3 h-3 text-red-500 fill-red-500" />
-            <span>for learners</span>
-          </div>
-        </footer>
+        {/* Content Area */}
+        <Routes>
+          <Route path="/skill/:skillId" element={<SkillView skills={skills} />} />
+          <Route path="/" element={<Navigate to={`/skill/${skills[0].id}`} replace />} />
+        </Routes>
       </main>
     </div>
+  );
+}
+
+// Full-page routes (without sidebar)
+function FullPageLayout() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      <TopBar />
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/bookmarks" element={<Bookmarks />} />
+        <Route path="/quiz/:skillId" element={<Quiz />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="/achievements" element={<Achievements />} />
+      </Routes>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <Routes>
+        {/* Main learning routes (with sidebar) */}
+        <Route path="/*" element={<MainLayout />} />
+
+        {/* Full-page routes (without sidebar) */}
+        <Route path="/profile" element={<FullPageLayout />} />
+        <Route path="/search" element={<FullPageLayout />} />
+        <Route path="/bookmarks" element={<FullPageLayout />} />
+        <Route path="/quiz/:skillId" element={<FullPageLayout />} />
+        <Route path="/settings" element={<FullPageLayout />} />
+        <Route path="/notes" element={<FullPageLayout />} />
+        <Route path="/achievements" element={<FullPageLayout />} />
+      </Routes>
+    </>
   );
 }
 

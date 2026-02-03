@@ -1,0 +1,14 @@
+# Utils Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Translation
+googletrans==4.0.0rc1
+
+# Database
+sqlite3  # Built-in with Python
+
+# XML processing (built-in)
+# import xml.etree.ElementTree
+# import xml.dom
+
+# Most utils use built-in libraries

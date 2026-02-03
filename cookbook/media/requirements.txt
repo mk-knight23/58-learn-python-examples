@@ -1,0 +1,31 @@
+# Media Recipes - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# PDF processing
+PyPDF2==3.0.1
+fpdf==1.7.2
+pypdf==3.17.4
+
+# Image processing
+Pillow==10.1.0
+opencv-python==4.9.0.80
+
+# Video processing
+opencv-python==4.9.0.80
+moviepy==1.0.3
+
+# Audio processing
+pydub==0.25.1
+pyaudio==0.2.14
+pygame==2.5.2  # For audio playback
+
+# Text-to-speech
+pyttsx3==2.90
+gTTS==2.4.0
+
+# QR codes
+qrcode==7.4.2
+pillow==10.1.0  # Required by qrcode
+
+# Face detection
+opencv-python==4.9.0.80  # Includes Haar Cascades
