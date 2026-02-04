@@ -15,9 +15,11 @@ A React-based visual learning platform for Python concepts. Built to make abstra
 
 ## Live Links
 
-- **GitHub Pages**: https://mk-knight23.github.io/25-python-mixed-examples/
-- **Vercel**: https://25-python-mixed-examples.vercel.app
-- **Netlify**: N/A
+- **GitHub**: https://github.com/mk-knight23/25-python-mixed-examples
+- **Vercel**: https://58-starter-python-examples.vercel.app ✅
+
+### Deployment Platforms
+- ✅ Vercel (configured: prj_aMfRbDrLXG5y5LuDi3SpInelPGXD)
 
 ---
 
