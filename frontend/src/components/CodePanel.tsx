@@ -10,75 +10,73 @@ interface CodePanelProps {
 
 // Simple Python syntax highlighter
 function highlightPythonCode(code: string): string {
-  // Escape HTML
-  let highlighted = code
+  if (!code) return '';
+
+  // Use a temporary storage for highlighted parts to avoid reprocessing
+  const tokens: { [key: string]: string } = {};
+  let tokenCount = 0;
+
+  const addToken = (content: string, className: string) => {
+    const id = `___TOKEN_${tokenCount++}_${Math.random().toString(36).substring(2, 7)}___`;
+    tokens[id] = `<span class="${className}">${content}</span>`;
+    return id;
+  };
+
+  // Escape HTML first
+  let temp = code
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  // Comments (must come before strings to avoid matching in strings)
-  highlighted = highlighted.replace(
-    /(#.*$)/gm,
-    '<span class="text-slate-500">$1</span>'
-  );
+  // 1. Comments (highest priority)
+  temp = temp.replace(/(#.*$)/gm, (_, p1) => addToken(p1, 'text-slate-500'));
 
-  // String literals
-  highlighted = highlighted.replace(
-    /(['"'`]{1,3})(.*?)(\1)/g,
-    '<span class="text-teal-300">$1$2$3</span>'
-  );
+  // 2. Strings (including f-strings)
+  // Handle f-strings and regular strings in one go
+  temp = temp.replace(/(f?['"`]{1,3})(.*?)(\1)/g, (_, p1, p2, p3) => {
+    return addToken(`${p1}${p2}${p3}`, 'text-teal-300');
+  });
 
-  // f-strings
-  highlighted = highlighted.replace(
-    /(f['"])(.*?)(['"])/g,
-    '<span class="text-teal-300">$1$2$3</span>'
-  );
-
-  // Keywords
+  // 3. Keywords
   const keywords = [
     'def', 'return', 'if', 'elif', 'else', 'for', 'while', 'in', 'not', 'and', 'or',
     'import', 'from', 'as', 'try', 'except', 'finally', 'with', 'class', 'pass',
     'break', 'continue', 'yield', 'lambda', 'True', 'False', 'None', 'global', 'nonlocal'
   ];
   const keywordRegex = new RegExp(`\\b(${keywords.join('|')})\\b`, 'g');
-  highlighted = highlighted.replace(
-    keywordRegex,
-    '<span class="text-purple-400">$1</span>'
-  );
+  temp = temp.replace(keywordRegex, (match) => addToken(match, 'text-purple-400'));
 
-  // Function calls
-  highlighted = highlighted.replace(
-    /(\w+)(?=\()/g,
-    '<span class="text-blue-400">$1</span>'
-  );
-
-  // Numbers
-  highlighted = highlighted.replace(
-    /\b(\d+(?:\.\d+)?)\b/g,
-    '<span class="text-orange-300">$1</span>'
-  );
-
-  // Built-in functions
+  // 4. Built-in functions
   const builtins = ['print', 'len', 'range', 'input', 'int', 'str', 'float', 'list', 'dict', 'set', 'tuple'];
   const builtinRegex = new RegExp(`\\b(${builtins.join('|')})\\b`, 'g');
-  highlighted = highlighted.replace(
-    builtinRegex,
-    '<span class="text-yellow-300">$1</span>'
-  );
+  temp = temp.replace(builtinRegex, (match) => addToken(match, 'text-yellow-300'));
 
-  // Decorators
-  highlighted = highlighted.replace(
-    /(@\w+)/g,
-    '<span class="text-pink-400">$1</span>'
-  );
+  // 5. Function calls
+  temp = temp.replace(/(\w+)(?=\()/g, (match) => addToken(match, 'text-blue-400'));
 
-  // Self parameter
-  highlighted = highlighted.replace(
-    /\b(self)\b/g,
-    '<span class="text-red-400">$1</span>'
-  );
+  // 6. Numbers
+  temp = temp.replace(/\b(\d+(?:\.\d+)?)\b/g, (match) => addToken(match, 'text-orange-300'));
 
-  return highlighted;
+  // 7. Decorators
+  temp = temp.replace(/(@\w+)/g, (match) => addToken(match, 'text-pink-400'));
+
+  // 8. Self
+  temp = temp.replace(/\b(self)\b/g, (match) => addToken(match, 'text-red-400'));
+
+  // Final pass: Re-insert tokens
+  let result = temp;
+  // Sort tokens by length descending to avoid partial matches
+  const sortedTokens = Object.entries(tokens).sort((a, b) => b[0].length - a[0].length);
+
+  sortedTokens.forEach(([id, html]) => {
+    const before = result;
+    result = result.split(id).join(html);
+    if (before === result && temp.includes(id)) {
+      console.warn(`Failed to replace token ${id} in string: ${result.substring(0, 50)}...`);
+    }
+  });
+
+  return result;
 }
 
 export function CodePanel({ skill, currentLine = 0 }: CodePanelProps) {
@@ -128,7 +126,7 @@ export function CodePanel({ skill, currentLine = 0 }: CodePanelProps) {
           {lines.map((line, index) => {
             const lineNumber = index + 1;
             const isActive = lineNumber === currentLine;
-            
+
             return (
               <motion.div
                 key={index}
