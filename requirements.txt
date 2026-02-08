@@ -1,0 +1,36 @@
+# Python Examples - Core Dependencies
+# Install these dependencies to run Python examples locally
+
+# HTTP requests
+requests>=2.31.0        # For making HTTP requests
+urllib3>=2.0.0         # Required by requests
+
+# Data processing
+pandas>=2.0.0          # Data manipulation and analysis
+numpy>=1.24.0          # Numerical computing
+
+# Image processing
+Pillow>=10.0.0        # Image processing library
+opencv-python>=4.8.0   # Computer vision
+
+# Audio processing
+pydub>=0.25.0          # Audio manipulation
+pygame>=2.5.0          # Game development and multimedia
+
+# Web scraping
+beautifulsoup4>=4.12.0 # HTML parsing
+lxml>=4.9.0           # XML/HTML parser
+selenium>=4.15.0      # Browser automation
+
+# Testing
+pytest>=7.4.0          # Test runner
+pytest-cov>=4.1.0     # Coverage reporting
+
+# Development tools
+black>=23.7.0          # Code formatter
+mypy>=1.5.0            # Type checker
+flake8>=6.0.0          # Code linting
+
+# Utilities
+python-dotenv>=1.0.0   # Environment variables
+pathlib2>=2.3.0        # Enhanced path handling

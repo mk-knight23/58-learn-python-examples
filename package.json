@@ -30,6 +30,7 @@
   "dependencies": {
     "framer-motion": "^12.29.2",
     "lucide-react": "^0.474.0",
+    "playwright": "^1.58.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router": "^7.13.0",
