@@ -1,21 +1,20 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "framework": "vite",
-  "rewrites": [
+  "version": 2,
+  "name": "learn-python-examples",
+  "builds": [
     {
-      "source": "/assets/(.*)",
-      "destination": "/assets/$1"
-    },
+      "src": "package.json",
+      "use": "@vercel/static-build"
+    }
+  ],
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
   "github": {
-    "silent": true
-  },
-  "env": {
-    "NODE_ENV": "production"
+    "enabled": true,
+    "autoAlias": true
   }
 }
