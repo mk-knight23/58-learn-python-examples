@@ -1,147 +1,22 @@
-# 🏗️ Architecture Documentation - Python Examples
-
-> System design, technical decisions, and architectural overview
-
-## 📋 Table of Contents
-
-1. [Overview](#overview)
-2. [System Architecture](#system-architecture)
-3. [Component Design](#component-design)
-4. [Data Flow](#data-flow)
-5. [Deployment Architecture](#deployment-architecture)
-6. [Security Considerations](#security-considerations)
-7. [Performance Optimization](#performance-optimization)
-
----
+# Architecture: 25-python-mixed-examples
 
 ## Overview
+A comprehensive technical anthology and visualization engine for Python algorithms. It features a React 19 frontend designed as an "AlgoViz Lab," providing high-fidelity visual simulations of core computational logic alongside a massive repository of mixed Python examples.
 
-### Purpose
-Python Examples is designed to Code example collection with a focus on simplicity, reliability, and ease of deployment.
+## Tech Stack
+-   **Frontend**: React 19
+-   **Build Tool**: Vite 6
+-   **Styling**: Tailwind CSS v4
+-   **Animations**: Framer Motion 12
+-   **Visualizer**: AnimatePresence-driven bar orchestration for algorithm simulation.
 
-### Design Principles
+## Core Logic
+-   **Visualization Engine**: Dynamic React 19 state management for simulating Bubblesort, Binary Search, and other algorithmic patterns with real-time HUD feedback.
+-   **Algorithm Library**: Decentralized collection of 100+ Python scripts covering everything from basic math to game development and socket programming.
+-   **Complexity HUD**: Informational overlay providing time (O-notation) and space complexity analysis for selected algorithms.
+-   **Anthology Hub**: Browsable interface for navigating the vast collection of specialized Python utilities.
 
-1. **Simplicity First** - Easy to understand and modify
-2. **Production Ready** - Works out of the box
-3. **Platform Agnostic** - Deploy anywhere
-4. **Continuous Evolution** - Always improving
-
----
-
-## System Architecture
-
-### High-Level Diagram
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        User Layer                          │
-│              (Browser / Mobile / Desktop)                  │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    CDN / Edge Network                       │
-│         (Vercel Edge / Cloudflare / Fastly)                │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   Application Layer                         │
-│              (React/Vue/Angular/Static)                    │
-└───────────────────────┬─────────────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    Data/API Layer                           │
-│              (REST API / GraphQL / Serverless)             │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Component Design
-
-### Frontend Components
-
-| Component | Purpose | Technology |
-|-----------|---------|------------|
-| App Shell | Layout structure | React/Vue/Angular |
-| UI Components | Reusable elements | Component library |
-| State Management | Data handling | Context/Redux/Pinia |
-| Routing | Navigation | React Router/Vue Router |
-
-### Backend Components
-
-| Component | Purpose | Technology |
-|-----------|---------|------------|
-| API Gateway | Request routing | Express/FastAPI/Django |
-| Controllers | Request handling | MVC pattern |
-| Services | Business logic | Service layer |
-| Models | Data entities | ORM/ODM |
-
----
-
-## Data Flow
-
-### Request Lifecycle
-
-1. **Request Received** - CDN → Edge Function
-2. **Authentication** - Validate token/session
-3. **Routing** - Direct to appropriate handler
-4. **Processing** - Execute business logic
-5. **Response** - Return data to client
-6. **Caching** - Cache response if applicable
-
----
-
-## Deployment Architecture
-
-### Multi-Platform Strategy
-
-```
-                    ┌─────────────────┐
-                    │   GitHub Repo   │
-                    └────────┬────────┘
-                             │
-              ┌──────────────┼──────────────┐
-              │              │              │
-              ▼              ▼              ▼
-        ┌─────────┐   ┌──────────┐   ┌──────────┐
-        │ Vercel  │   │ Netlify  │   │ Firebase │
-        └─────────┘   └──────────┘   └──────────┘
-```
-
----
-
-## Security Considerations
-
-### Implemented Security Measures
-
-- ✅ HTTPS enforced on all platforms
-- ✅ Security headers (CSP, HSTS, X-Frame-Options)
-- ✅ Input validation and sanitization
-- ✅ Dependency vulnerability scanning
-- ✅ Automated security updates
-
----
-
-## Performance Optimization
-
-### Strategies
-
-| Area | Technique | Impact |
-|------|-----------|--------|
-| Loading | Code splitting | -60% initial load |
-| Rendering | Virtual scrolling | Smooth large lists |
-| Assets | Image optimization | -80% image size |
-| Caching | Service worker | Offline support |
-
-### Metrics
-
-- **First Contentful Paint:** < 1.5s
-- **Time to Interactive:** < 3.5s
-- **Lighthouse Score:** 95+
-
----
-
-🦾 **Evolved with OpenClaw** | Last Updated: 2026-03-06
+## Performance
+-   React 19 native rendering for ultra-fluid visualization updates.
+-   Tailwind v4 native architecture for minimal CSS bundle size in the complex laboratory UI.
+-   Vite 6 optimized HMR for rapid development of new visualization modules.
